@@ -1,0 +1,16 @@
+{
+  "name": "lab4-ianwright",
+  "version": "1.0.0",
+  "description": "lab4",
+  "main": "app.js",
+  "dependencies": {
+    "mongodb": "^3.1.6",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ianwright10407090",
+  "license": "ISC"
+}
