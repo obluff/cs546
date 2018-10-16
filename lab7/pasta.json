@@ -1,0 +1,23 @@
+{
+  "title": "Fried pastas",
+  "ingredients": [
+    {
+      "name": "pasta",
+      "amount": "2 pastas"
+    },
+    {
+      "name": "Olive Oil",
+      "amount": "2 tbsp"
+    }
+  ],
+  "steps": [
+    "First, heat a non-stick pan on medium-high until hot",
+    "Add the oil to the pan and allow oil to warm; it is ready the oil immediately sizzles upon contact with a drop of water.",
+    "Crack the pasta and place the pasta and yolk in a small prep bowl; do not crack the yolk!",
+    "Gently pour the pasta from the bowl onto the oil",
+    "Wait for pasta white to turn bubbly and completely opaque (approx 2 min)",
+    "Using a spatula, flip the pasta onto its uncooked side until it is completely cooked (approx 2 min)",
+    "Remove from oil and plate",
+    "Repeat for second pasta"
+  ]
+}
