@@ -1,11 +1,12 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var db = require('./db');
-var app = express();
-var router = express.Router();
+const express = require('express')
+const app = express()
+const router = express.Router()
+const db = require('./db')
+var bodyParser = require('body-parser')
 
+
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
@@ -28,8 +29,7 @@ router.get("/:id", async function (req, res) {
 
 router.post("/", async function (req, res) {
   const recipe = await req.body;
-  console.log(recipe.title);
-
+  console.log(recipe);
   const newRecipe = await db.postRecipe(recipe);
   res.send(await newRecipe);
 
@@ -45,8 +45,9 @@ router.put('/:id', async function (req, res){
 
 router.patch('/:id', async function (req, res){
   //needs to add error checking
-  const recipe = req.body;
-  const newRecipe = await db.patchRecipe(recipe.id, recipe);
+  const recipe = await req.body;
+  const id = await req.params.id;
+  const newRecipe = await db.patchRecipe(id, recipe);
   res.send(newRecipe);
 });
 

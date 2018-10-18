@@ -15,7 +15,12 @@ expt.getRecipe = async function(id){
 }
 expt.postRecipe = async function(obj){
   if(!obj) throw "no object provided";
-  return await expt.createRecipe(obj.title, obj.ingredients, obj.steps);
+  const cookbook = await recipes();
+  const recipeId = uuidv1();
+  obj._id = recipeId;
+  const insertInfo = await cookbook.insertOne(obj);
+  if(insertInfo.insertedCount === 0) throw "could not add recipe";
+  return await expt.getRecipe(recipeId);
 }
 
 expt.createRecipe = async function(title, ingredients, steps){
@@ -43,7 +48,7 @@ expt.replaceRecipe = async function(recipeId, obj){
 
 expt.patchRecipe = async function(recipeId, obj){
   const cookbook = await recipes();
-  const res = await db.updateOne({_id: recipeId}, { $set: recipe });
+  const res = await cookbook.updateOne({_id: recipeId}, { $set: obj });
   if(res.error) throw res.error;
   if (res.matchedCount === 0) throw 'no recipe matched';
   return expt.getRecipe(recipeId);
