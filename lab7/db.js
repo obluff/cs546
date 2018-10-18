@@ -42,6 +42,7 @@ expt.createRecipe = async function(title, ingredients, steps){
   return await expt.getRecipe(recipeId);
 }
 expt.replaceRecipe = async function(recipeId, obj){
+  if(!obj) throw 'need to provide an object';
   await expt.removeRecipe(recipeId);
   return await expt.postRecipe(obj);
 }

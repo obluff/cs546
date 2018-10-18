@@ -39,7 +39,7 @@ router.put('/:id', async function (req, res){
   //needs to add error checking
   const recipe = await req.body;
   console.log(recipe);
-  const newRecipe = await db.replaceRecipe(recipe._id, recipe);
+  const newRecipe = await db.replaceRecipe(await req.params.id, recipe);
   res.send(newRecipe);
 });
 
