@@ -21,30 +21,23 @@ router.get("/", async function (req, res) {
     res.send(body);
   });
 
-router.get("/:id", function (req, res) {
-
-
+router.get("/:id", async function (req, res) {
+    return await db.getRecipe(req.params.id);
 });
 
 router.post("/", async function (req, res) {
   const recipe = await req.body;
   console.log(recipe.title);
 
-  const newRecipe = await db.createRecipe(recipe.title, recipe.ingredients, recipe.steps);
+  const newRecipe = await db.postRecipe(recipe);
   res.send(await newRecipe);
 
 });
 
-router.put("/:id", function (req, res) {
 
-
-});
-
-router.post("/:id", function (req, res) {
-
-});
-router.delete("/:id", function (req, res) {
-
+router.delete("/:id", async function (req, res) {
+  console.log(req.params.id);
+  await db.removeRecipe(req.params.id);
 });
 
 app.use('/recipes', router);

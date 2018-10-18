@@ -13,6 +13,10 @@ expt.getRecipe = async function(id){
 
   return recipe;
 }
+expt.postRecipe = async function(obj){
+  if(!obj) throw "no object provided";
+  return await expt.createRecipe(obj.title, obj.ingredients, obj.steps);
+}
 
 expt.createRecipe = async function(title, ingredients, steps){
   if(!title) throw "provide a title";
@@ -31,6 +35,10 @@ expt.createRecipe = async function(title, ingredients, steps){
   if (insertInfo.insertedCount === 0) throw "Could not add post";
 
   return await expt.getRecipe(recipeId);
+}
+expt.replaceRecipe = async function(recipeId, obj){
+  await expt.removeRecipe(recipeId);
+  return await expt.postRecipe(obj);
 }
 
 expt.removeRecipe = async function(recipeId){
