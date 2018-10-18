@@ -22,7 +22,8 @@ router.get("/", async function (req, res) {
   });
 
 router.get("/:id", async function (req, res) {
-    return await db.getRecipe(req.params.id);
+    const recipe = await db.getRecipe(req.params.id);
+    res.json(recipe);
 });
 
 router.post("/", async function (req, res) {
@@ -34,10 +35,25 @@ router.post("/", async function (req, res) {
 
 });
 
+router.put('/:id', async function (req, res){
+  //needs to add error checking
+  const recipe = await req.body;
+  console.log(recipe);
+  const newRecipe = await db.replaceRecipe(recipe._id, recipe);
+  res.send(newRecipe);
+});
+
+router.patch('/:id', async function (req, res){
+  //needs to add error checking
+  const recipe = req.body;
+  const newRecipe = await db.patchRecipe(recipe.id, recipe);
+  res.send(newRecipe);
+});
 
 router.delete("/:id", async function (req, res) {
   console.log(req.params.id);
   await db.removeRecipe(req.params.id);
+  res.status(200).end;
 });
 
 app.use('/recipes', router);

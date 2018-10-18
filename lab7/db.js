@@ -41,6 +41,14 @@ expt.replaceRecipe = async function(recipeId, obj){
   return await expt.postRecipe(obj);
 }
 
+expt.patchRecipe = async function(recipeId, obj){
+  const cookbook = await recipes();
+  const res = await db.updateOne({_id: recipeId}, { $set: recipe });
+  if(res.error) throw res.error;
+  if (res.matchedCount === 0) throw 'no recipe matched';
+  return expt.getRecipe(recipeId);
+}
+
 expt.removeRecipe = async function(recipeId){
   const cookbook = await recipes();
   const deleted = await cookbook.removeOne({ _id: recipeId });
