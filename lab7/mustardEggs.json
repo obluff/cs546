@@ -1,0 +1,12 @@
+{ "title": "mustard egg",
+  "ingredients": [
+  {
+    "name": "Egg",
+    "amount": "2 eggs"
+  },
+  {
+    "name": "mustard",
+    "amount": "2 tbsp"
+  }
+]
+}

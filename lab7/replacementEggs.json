@@ -1,0 +1,16 @@
+{"title": "unfried eggs",
+  "ingredients": [
+    {
+      "name": "Egg",
+      "amount": "2 eggs"
+    },
+    {
+      "name": "Olive Oil",
+      "amount": "2 tbsp"
+    }
+  ],
+  "steps": [
+    "put olive oil on the egg",
+    "you are done hurray"
+  ]
+}

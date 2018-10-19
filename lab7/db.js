@@ -23,31 +23,20 @@ expt.postRecipe = async function(obj){
   return await expt.getRecipe(recipeId);
 }
 
-expt.createRecipe = async function(title, ingredients, steps){
-  if(!title) throw "provide a title";
-  if(!ingredients) throw "you need ingredients for your recipe";
-  if(!steps) throw "you didn't provide steps for your recipe";
-  const recipeId = uuidv1();
-  const cookbook = await recipes();
 
-  const newRecipe = {
-    "_id": recipeId,
-    "title": title,
-    "ingredients": ingredients,
-    "steps": steps
-  };
-  const insertInfo = await cookbook.insertOne(newRecipe);
-  if (insertInfo.insertedCount === 0) throw "Could not add post";
-
-  return await expt.getRecipe(recipeId);
-}
 expt.replaceRecipe = async function(recipeId, obj){
+  if(!recipeId) throw 'please provide recipeId';
   if(!obj) throw 'need to provide an object';
+
   await expt.removeRecipe(recipeId);
   return await expt.postRecipe(obj);
 }
 
 expt.patchRecipe = async function(recipeId, obj){
+  if(!recipeId) throw 'please provide recipeId';
+  if(!obj) throw 'need to provide an object';
+
+
   const cookbook = await recipes();
   const res = await cookbook.updateOne({_id: recipeId}, { $set: obj });
   if(res.error) throw res.error;
@@ -56,12 +45,14 @@ expt.patchRecipe = async function(recipeId, obj){
 }
 
 expt.removeRecipe = async function(recipeId){
+  if(!recipeId) throw 'please provide recipeId';
+
+
   const cookbook = await recipes();
   const deleted = await cookbook.removeOne({ _id: recipeId });
-  if(deleted.deletedCount == 0){
-    throw 'couldnt delete';
-  }
-  0;
+  if(deleted.error) throw 'error deleting'
+  if(deleted.deletedCount == 0) throw 'couldnt delete';
+  return true;
 }
 
 
