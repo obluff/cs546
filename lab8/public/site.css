@@ -1,0 +1,62 @@
+body {
+    margin: 40px 80px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    text-align:center;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+form {
+    margin-top: 50px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    text-align: center;
+}
+
+button {
+    border: none;
+    width: 150px;
+    height: 70px;
+    background: white;
+    font-weight: bold;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: black;
+}
+
+button:hover {
+    background: yellow;
+}
+
+input {
+    border: 10px solid blue;
+    font-size: 15px;
+}
+
+@keyframes wobble {
+  33% {
+  transform: translateX(-50px);
+  }
+  66% {
+  transform: translateX(50px);
+  } }
+
+@keyframes scroll {
+    0%, 20% {
+    transform: translateY(0) scaleY(1);
+    }
+  }
+.success{
+    font-weight: italic;
+    font-size: 100px;
+    animation: scroll 5s infinite;
+
+}
+.failure{
+  background-color: red;
+  color: blue;
+  animation: wobble 5s infinite;
+  font-weight: bold;
+  font-size: 100px;
+}

@@ -1,0 +1,18 @@
+{
+  "name": "lab8ianwright",
+  "version": "1.0.0",
+  "description": "palindrome checker",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.12",
+    "hbs": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "ianwright10407090",
+  "license": "ISC"
+}
