@@ -1,0 +1,22 @@
+{
+  "name": "lab10ianwright",
+  "version": "1.0.0",
+  "description": "simple authentication script",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.12",
+    "hbs": "^4.0.1",
+    "mongodb": "^3.1.10",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "ianwright10407090",
+  "license": "ISC"
+}

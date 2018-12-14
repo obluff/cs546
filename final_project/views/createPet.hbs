@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+</head>
+<body>
+    <main>
+      <h1> create a homie </h1>
+      <div>
+      <form id="createPet" action="/createPet" method="post">
+        <label>pet name:</label>
+        <input type="text" name="petName"  placeholder="pet name">
+        <label>  </label>
+
+        <select name="color" size="4" multiple>
+          <option value="blue">blue</option>
+          <option value="red">red</option>
+          <option value="black">black</option>
+          <option value="white">white</option>
+        </select>
+
+        <button  type="submit">Submit</button>
+      </form>
+      </div>
+      <h4> {{text}} </h4>
+    </main>
+</body>
+{{{footer}}}
+</html>
