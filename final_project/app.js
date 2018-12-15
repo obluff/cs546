@@ -60,7 +60,7 @@ app.get('/createPet', (req, res) => {
 }
 })
 
-async function generateHomies(arr){
+async function generateHomies(arr, withOwner){
   var html = ''
   for(i = 0; i < arr.length; i++){
     console.log(i);
@@ -69,6 +69,8 @@ async function generateHomies(arr){
     console.log(pet);
       var image = '<img src="/public/pets/' + pet.species + pet.color +'.png">'
       html += '<a href=/homie/' + arr[i] + '>' + image + arr[i] + '</a>';
+      if(withOwner === true) html += '<a href=/user/' + pet.owner + '>' +  pet.owner +'</a>';
+
   }
   return html;
 }
@@ -94,7 +96,7 @@ app.get('/homie/:petName', async (req, res) =>{
 app.get('/user/:userName', async (req, res) =>{
   if(!req.params.userName) res.redirect('/');
   var data = await db.getUser(req.params.userName);
-  var homieHTML = await generateHomies(data.homies);
+  var homieHTML = await generateHomies(data.homies, false);
   res.render('private.hbs', {username: data.username, name: data.name, bio: data.bio, homies: homieHTML, footer: foot, header:head});
 });
 
@@ -167,14 +169,16 @@ app.get('/findPets', async (req, res) => {
     if(petObjs[i].owner === req.cookies.authorized){ continue;}
     petArray.push(petObjs[i].petName)
   }
-  console.log(petArray);
-  var response = await generateHomies(petArray);
+  //randomly sorts the pets array
+  petArray.sort( () => Math.random() -0.5 );
+
+  var response = await generateHomies(petArray.slice(0,3), false);
 
   res.render('allPets.hbs', {homies: response, footer:foot, header:head});
 });
 
 app.get('/update/:secret', async (req, res) => {
-  if(req.params.secret == 'weouthere'){
+  if(req.params.secret == 'welovehomies'){
 
     await db.decreaseStats();
     res.send('done');

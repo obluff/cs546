@@ -1,0 +1,2 @@
+in order to automatically, pseudorandomly reduce the hunger/happiness for the pets. add this command to your crontab.
+curl "http://localhost:3000/update/welovehomies"

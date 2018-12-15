@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="/public/site.css" />
     <meta charset="utf-8">
     <title></title>
 
@@ -11,7 +12,8 @@
 </header>
 
 <body>
-    <main>
+
+    <article id="mainArticle">
       <h1> create a homie </h1>
       <div>
       <form id="createPet" action="/createPet" method="post">
@@ -36,7 +38,9 @@
       </form>
       </div>
       <h4> {{text}} </h4>
-    </main>
+    </article>
 </body>
+<footer id="pageFooter">
 {{{footer}}}
+</footer>
 </html>
