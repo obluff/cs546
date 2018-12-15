@@ -2,19 +2,25 @@
 <html>
 <head>
     <link rel="stylesheet" href="/public/site.css" />
-    <meta charset="utf-8">
-    <title>{{petName}}</title>
-</head>
-<body>
-     <ul>
-       <li> creator: {{{owner}}} </li>
-       <li> age: {{age}} </li>
-       <li> hunger: {{hunger}} </li>
-       <li> happiness: {{hapiness}} </li>
 
-    </main>
-    <footer> <a href="/logout"> logout </a> </footer>
+<header id="pageHeader">
+{{{header}}}
+<h3 style="text-align:center">{{name}} </h3></header>
+<article id="mainArticle">
+<div style="text-align: center">
+  <ul>
+    <li> creator: {{{owner}}} </li>
+    <li> hunger: {{hunger}} </li>
+    <li> happiness: {{happy}} </li>
+  </ul>
+    {{{feed}}}
+    {{{play}}}
 
-</body>
-{{{footer}}}
+
+
+
+  <image src="/public/pets/{{type}}{{color}}.png" filter="url(#redden)"></img>
+</article>
+
+<footer id="pageFooter">{{{footer}}}</footer>
 </html>

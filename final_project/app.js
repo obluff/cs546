@@ -2,9 +2,10 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 var bcrypt = require('bcrypt');
 var db = require('./db');
-var foot = '<div style="footer"> | <a href="signup"> sign up </a> | <a href="/"> home </a> | <a href="/logout"> log out </a> </div> | <a href="createPet"> create a pet </a>'
-const cookie = require("cookie-parser");
+var foot = '<div style="text-align:center">| <a href="/signup"> sign up </a> | <a href="/"> home </a> | <a href="/logout"> log out </a> | <a href="/createPet"> create a pet </a> | <a href="/findPets"> find pets </a> </div>'
+var head = '<div style="text-align:center"> <img src="/public/logo.png" height="50px"> </div> '
 
+const cookie = require("cookie-parser");
 
 var app = express();
 
@@ -19,7 +20,7 @@ app.set('view engine', 'handlebars');
 
 app.get('/', (req, res) => {
   if(!(req.cookies.authorized)){
-    res.render('login.hbs', {text: '', footer: foot});
+    res.render('login.hbs', {text: '', footer: foot, header:head});
 }
 else{
   res.redirect('/user/' + req.cookies.authorized);
@@ -35,18 +36,19 @@ else{
 //
 // });
 
-app.get('/feedPet/:petName', async (req, res) => {
+app.post('/feedPet/:petName', async (req, res) => {
   var pet = await db.getPet(req.params.petName);
   if(pet.owner !== req.cookies.authorized) throw 'doesnt work';
   await db.satisfyPet(req.params.petName, 'hunger');
-
+  res.redirect('/homie/' + req.params.petName);
 });
 
 
-app.get('/playPet/:petName', async (req, res) => {
+app.post('/playPet/:petName', async (req, res) => {
   var pet = await db.getPet(req.params.petName);
   if(pet.owner !== req.cookies.authorized) throw 'doesnt work';
-  await db.satisfyPet(req.params.petName, 'play');
+  await db.satisfyPet(req.params.petName, 'happiness');
+  res.redirect('/homie/' + req.params.petName);
 })
 
 app.get('/createPet', (req, res) => {
@@ -58,28 +60,42 @@ app.get('/createPet', (req, res) => {
 }
 })
 
-function generateArray(arr){
-  var html = '<ul>'
+async function generateHomies(arr){
+  var html = ''
   for(i = 0; i < arr.length; i++){
-    html += '<li><a href=/homie/' + arr[i] + '>' + arr[i] + '</a></li>';
+    console.log(i);
+    console.log(arr);
+    const pet = await db.getPet(arr[i])
+    console.log(pet);
+      var image = '<img src="/public/pets/' + pet.species + pet.color +'.png">'
+      html += '<a href=/homie/' + arr[i] + '>' + image + arr[i] + '</a>';
   }
-  html += '</ul>'
   return html;
 }
 
 app.get('/homie/:petName', async (req, res) =>{
   if(!req.params.petName) res.redirect('/');
-  console.log(req.params.petName);
   var pet = await db.getPet(req.params.petName);
   var ownerLink = '<a href="/user/' + pet.owner + '">' + pet.owner + '</a>'
-  res.render('homieProfile.hbs', {petName: pet.status.name, hunger: pet.status.hunger, happiness: pet.status.happiness, owner: ownerLink, footer: foot});
+
+  console.log('word')
+  console.log(pet.status);
+  var handleb = {name: pet.petName, color: pet.color, hunger: pet.status.hunger, happy: pet.status.happiness, owner: ownerLink, type: pet.species, footer: foot, header:head}
+  if(pet.owner === req.cookies.authorized){
+    console.log('word');
+    handleb.feed = '<form class="chill" id="feed" action="/feedPet/' + req.params.petName +'"' +  ' method=post> <button> feed </button> </form>'
+    handleb.play = '<form class="chill" id="play" action="/playPet/' + req.params.petName + '"' + ' method=post> <button> play </button> </form>'
+  }
+  console.log(handleb);
+
+  res.render('homieProfile.hbs', handleb);
 });
 
 app.get('/user/:userName', async (req, res) =>{
   if(!req.params.userName) res.redirect('/');
   var data = await db.getUser(req.params.userName);
-  var homieHTML = generateArray(data.homies);
-  res.render('private.hbs', {username: data.username, name: data.name, bio: data.bio, homies: homieHTML, footer: foot});
+  var homieHTML = await generateHomies(data.homies);
+  res.render('private.hbs', {username: data.username, name: data.name, bio: data.bio, homies: homieHTML, footer: foot, header:head});
 });
 
 app.post('/login', async (req, res) => {
@@ -95,37 +111,39 @@ app.post('/login', async (req, res) => {
       completed = true;
     }
   }
-  if(completed == false) res.render('login.hbs', {text: 'you failed to provide correct credentials', footer: foot});
+  if(completed == false) res.render('login.hbs', {text: 'you failed to provide correct credentials', footer: foot, header:head});
 });
 
 app.post('/createPet', async (req, res) => {
     const newPet = await req.body;
     console.log(newPet);
     var successful = true;
-    if(!(newPet.petName && newPet.color)) res.render('createPet.hbs', {text: 'you failed to provide proper info', footer: foot});
+    if(!(newPet.petName && newPet.color)) res.render('createPet.hbs', {text: 'you failed to provide proper info', footer: foot, header:head});
 
     const sdf = await db.createPet(newPet, req.cookies.authorized);
-    res.render('createPet.hbs', {text: JSON.stringify(sdf), footer: foot});
+    res.redirect('/homie/' + newPet.petName);
 })
 app.get('/signup', async(req, res) => {
-  res.render('signup.hbs', {footer: foot});
+  res.render('signup.hbs', {footer: foot, header:head});
 })
 
 app.post('/signup', async (req, res) => {
   const user = await req.body;
   console.log(user);
   var successful = true;
-  if(!(user.username && user.password)) res.render('login.hbs', {text: 'you failed to provide proper info', footer: foot});
-
+  if(!(user.username && user.password)) res.render('login.hbs', {text: 'you failed to provide proper info', footer: foot, header:head});
+  user.username = user.username.replace(/[^A-Z0-9]/ig, "_").replace(' ', '_');
   user.password = await bcrypt.hashSync(user.password, 10);
   try{
     await db.createUser(user);
   } catch(err){
-    res.render('signup.hbs', {text: err, footer: foot})
+    res.render('signup.hbs', {text: err, footer: foot, header:head})
   }
-  res.render('login.hbs', {text: 'signup successful, now log into your account', footer: foot});
+
+  res.render('login.hbs', {text: 'user ' + user.username + ' has been created log in now' , footer: foot,header:head});
 
 });
+
 app.get('/logout', (req, res) => {
   res.clearCookie('authorized');
   res.render('login.hbs', {text: 'you have successfully logged out', footer: foot});
@@ -142,9 +160,17 @@ app.get('/private', async (req, res) => {
   res.render('private.hbs', {username: data.username, name: data.name, bio: data.bio, homies: data.homies, footer: foot});
 });
 
-app.get('/allPets', async (req, res) => {
-  gg = await db.getAllPets();
-  res.send(gg);
+app.get('/findPets', async (req, res) => {
+  petObjs = await db.getAllPets();
+  var petArray = [];
+  for(i = 0; i < petObjs.length; i++){
+    if(petObjs[i].owner === req.cookies.authorized){ continue;}
+    petArray.push(petObjs[i].petName)
+  }
+  console.log(petArray);
+  var response = await generateHomies(petArray);
+
+  res.render('allPets.hbs', {homies: response, footer:foot, header:head});
 });
 
 app.get('/update/:secret', async (req, res) => {

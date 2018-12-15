@@ -1,35 +1,54 @@
+
 body {
-    margin: 40px 80px;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    text-align:center;
-}
+  background-image: url("pets/backgroundimage.jpg");
+  display: grid;
+  grid-template-areas:
+    "nav header ads"
+    "nav article ads"
+    "nav footer ads";
+  grid-template-rows: 200px 1fr 70px;
+  grid-template-columns: 20% 1fr 20%;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  height: 100vh;
+  margin: 0;
+  }
+header, footer, article, nav, div {
+  padding: 1.2em;
+  background: yellow;
+  opacity: .85;
+  font-family: Helvetica;
+  font-weight:bold;
+  }
 
-h1 {
-    text-align: center;
-    font-family: 'Helvetica', 'Arial', sans-serif;
+#pet{
+  filter: brightness(50%) sepia(100) saturate(100) hue-rotate(25deg);
 }
+#pageHeader {
+  grid-area: header;
+  }
+#pageFooter {
+  grid-area: footer;
+  }
+#mainArticle {
+  grid-area: article;
 
-form {
-    margin-top: 50px;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    text-align: center;
-}
+  }
+#mainNav {
+  grid-area: nav;
+  }
+#siteAds {
+  grid-area: ads;
+  }
+/* Stack the layout on small devices/viewports. */
+@media all and (max-width: 575px) {
 
-button {
-    border: none;
-    width: 150px;
-    height: 70px;
-    background: white;
-    font-weight: bold;
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    color: black;
-}
-
-button:hover {
-    background: yellow;
-}
-
-input {
-    border: 10px solid blue;
-    font-size: 15px;
+  body {
+    grid-template-areas:
+      "header"
+      "article"
+      "footer";
+    grid-template-rows: 200px 1fr 70px;
+    grid-template-columns: 1fr;
+ }
 }

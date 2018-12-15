@@ -27,9 +27,8 @@ expt.userExists = async function(userName){
 }
 
 expt.createUser = async function(obj){
-  console.log(obj);
-  obj.homies = [];
   if(!obj) throw "no object provied";
+  obj.homies = [];
   const users = await usrs();
   if(await expt.userExists(obj.username)) throw "user already exists";
   const insertInfo = await users.insertOne(obj);
@@ -88,12 +87,16 @@ expt.createPet = async function(obj, petOwner){
   if(!obj) throw "no object provided";
   console.log(obj);
   const petBook = await pets();
+  obj.petName = obj.petName.replace(/[^A-Z0-9]/ig, "_");
   if(await expt.petExists(obj.petName)) throw "pet name already exists";
 
   obj.status = {"happiness": 5.0, "hunger": 5.0};
   obj.owner = petOwner;
-
   var owner = await expt.getUser(petOwner);
+
+
+  const insertInfo = await petBook.insertOne(obj);
+  if(insertInfo.insertedCount === 0) throw "could not add pet";
 
   var update= {}
   if(owner.hasOwnProperty('homies')){
@@ -103,10 +106,8 @@ expt.createPet = async function(obj, petOwner){
   }
 
   await expt.patchUser(petOwner, update);
-
-  const insertInfo = await petBook.insertOne(obj);
-  if(insertInfo.insertedCount === 0) throw "could not add pet";
   return await expt.getPet(obj.petName);
+
 }
 
 
@@ -123,10 +124,12 @@ expt.satisfyPet = async function(petName, param){
   var pet = await expt.getPet(petName);
   console.log(param);
   var status = pet.status;
-  var value = status[param];
-  status[param] = value + Math.random()
-  await expt.patchPet(petName, status);
-
+  var value = status[param] + Math.random();
+  if(value > 10) value = 10.0;
+  status[param] = value;
+  console.log(status);
+  await expt.patchPet(petName, {status});
+  console.log(await expt.getPet(petName));
 }
 
 
@@ -156,6 +159,8 @@ expt.decreaseStats = async function(){
     const random1 = Math.random();
     const random2 = Math.random();
     const NewStatus = {'happiness': currentPet.status.happiness - random1, 'hunger': currentPet.status.hunger - random2}
+    if(NewStatus.happiness < 0) NewStatus.happiness = 0;
+    if(NewStatus.hunger < 0) NewStatus.hunger = 0;
     var updateJson = {'status': NewStatus};
     await expt.patchPet(currentPet.petName, updateJson);
   }

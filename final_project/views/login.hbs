@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title></title>
+    <link rel="stylesheet" href="/public/site.css" />
 
-</head>
-<body>
-    <main>
-      <h1>LOGIN </h1>
-      <div>
-        <form id="login" action="/login" method="post">
-          <label>Username:</label>
-          <input type="text" name="username"  placeholder="Username">
-          <label>Password:  </label>
-          <input type="password" name="password"  placeholder="Password">
-          <button  type="submit">Submit</button>
-        </form>
-      </div>
-      <h4> {{text}} </h4>
-      <a href="/signup"> need to sign up? </a>
-    </main>
-</body>
-{{{footer}}}
+<header id="pageHeader"> {{{header}}}
+<h3 style="text-align:center"> LOGIN </header>
+<article id="mainArticle">
+  <form id="login" action="/login" method="post">
+    <label>Username:</label>
+    <input type="text" name="username"  placeholder="Username">
+    <label>Password:  </label>
+    <input type="password" name="password"  placeholder="Password">
+    <button  type="submit">Submit</button>
+  </form>
+<h4> {{text}} </h4>
+</article>
+<footer id="pageFooter">{{{footer}}}</footer>
 </html>
