@@ -1,0 +1,16 @@
+{"_id":{"$oid":"5c153a0a85e916148127b8ec"},"petName":"my_pet","color":"blue","species":"chillary","status":{"happiness":5.476480758768966,"hunger":7.334409936892452},"owner":"ianwrightaw"}
+{"_id":{"$oid":"5c153b1285e916148127b8ee"},"petName":"mypet","color":"black","species":"chillary","status":{"happiness":2.2993405043674,"hunger":2.8970916230757737},"owner":"ryan"}
+{"_id":{"$oid":"5c153b2985e916148127b8ef"},"petName":"mr_sick","color":"blue","species":"homae","status":{"happiness":8.006848138501422,"hunger":3.372981737784228},"owner":"ryan"}
+{"_id":{"$oid":"5c153bd24911fe1b2a7096b7"},"petName":"ilovemyhomie","color":"red","species":"jawesome","status":{"happiness":5.586420998026314,"hunger":3.148137901916562},"owner":"ryan"}
+{"_id":{"$oid":"5c153d2c85b6cb1d1d020cfb"},"petName":"newpet","color":"blue","species":"chillary","status":{"happiness":3.9140827243623417,"hunger":2.726475253267396},"owner":"mr_cool"}
+{"_id":{"$oid":"5c153d4385b6cb1d1d020cfc"},"petName":"supernewpet","color":"blue","species":"boysknight","status":{"happiness":2.776953290884808,"hunger":2.341918393248317},"owner":"mr_cool"}
+{"_id":{"$oid":"5c153f03ca084a2035cc785f"},"petName":"created","color":"red","species":"chillary","status":{"happiness":3.7739690519929314,"hunger":3.4001167924105857},"owner":"mr_cool"}
+{"_id":{"$oid":"5c154995ef900725fcbabd6e"},"petName":"thecoolman","color":"black","species":"boysknight","status":{"happiness":5.915020892531652,"hunger":6.569398490965696},"owner":"newuserfinal"}
+{"_id":{"$oid":"5c1549c9ef900725fcbabd6f"},"petName":"mysecondpet","color":"red","species":"jawesome","status":{"happiness":4.67364772396597,"hunger":5.119208018718239},"owner":"newuserfinal"}
+{"_id":{"$oid":"5c154bf7d1f7ca2d61969f8c"},"petName":"thechillguy","color":"black","species":"boysknight","status":{"happiness":6.822423971072095,"hunger":7.883089327913873},"owner":"ilovehomies"}
+{"_id":{"$oid":"5c154c33d1f7ca2d61969f8d"},"petName":"bighomie","color":"red","species":"jawesome","status":{"happiness":4.328985842273948,"hunger":5.0264577653936575},"owner":"ilovehomies"}
+{"_id":{"$oid":"5c15557640f2c71766b4feae"},"petName":"mr_cool","color":"blue","species":"homae","status":{"happiness":6.764179212785327,"hunger":9.032246534079873},"owner":"new_user"}
+{"_id":{"$oid":"5c1555a640f2c71766b4feaf"},"petName":"thing2","color":"black","species":"boysknight","status":{"happiness":5.008606498878845,"hunger":4.883541706109451},"owner":"new_user"}
+{"_id":{"$oid":"5c15585540f2c71766b4feb2"},"petName":"charlie117","color":"black","species":"boysknight","status":{"happiness":8.367440432660922,"hunger":5.900696224997191},"owner":"546final"}
+{"_id":{"$oid":"5c15589440f2c71766b4feb3"},"petName":"charlie_118","color":"red","species":"jawesome","status":{"happiness":7.119937805522016,"hunger":7.030354119498368},"owner":"546final"}
+{"_id":{"$oid":"5c155a3940f2c71766b4feb5"},"petName":"patient","color":"red","species":"homae","status":{"happiness":6.7542661710865985,"hunger":6.905559847162078},"owner":"homiefather"}

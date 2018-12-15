@@ -21,9 +21,6 @@ header, footer, article, nav, div {
   font-weight:bold;
   }
 
-#pet{
-  filter: brightness(50%) sepia(100) saturate(100) hue-rotate(25deg);
-}
 #pageHeader {
   grid-area: header;
   }

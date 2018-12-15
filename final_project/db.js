@@ -6,7 +6,7 @@ const db = require('./db');
 
 var expt = module.exports;
 
-
+//gets a user
 expt.getUser = async function(userName){
   if(typeof userName !== 'string') throw 'you need to provide a username';
   const users = await usrs();
@@ -17,6 +17,7 @@ expt.getUser = async function(userName){
 
   return user;
 }
+//checks if user exists
 expt.userExists = async function(userName){
   if(typeof userName !== 'string') throw 'you need to provide a username';
   const users = await usrs();
@@ -26,6 +27,7 @@ expt.userExists = async function(userName){
 
 }
 
+//creates a user
 expt.createUser = async function(obj){
   if(!obj) throw "no object provied";
   obj.homies = [];
@@ -37,6 +39,7 @@ expt.createUser = async function(obj){
 
 }
 
+//changes values about the user
 expt.patchUser = async function(userName, obj){
   if(!userName) throw 'please provide recipeId';
   if(!obj) throw 'need to provide an object';
@@ -49,6 +52,7 @@ expt.patchUser = async function(userName, obj){
   return expt.getUser(userName);
 }
 
+//changes values about the pet
 expt.patchPet = async function(name, obj){
   if(!name) throw 'please provide petName';
   if(!obj) throw 'need to provide an object';
@@ -63,7 +67,7 @@ expt.patchPet = async function(name, obj){
 
 
 
-
+//returns pet
 expt.getPet = async function(name){
   if (typeof name !== 'string') throw "you need to provide an petname";
   const petBook = await pets();
@@ -74,6 +78,7 @@ expt.getPet = async function(name){
   return pet;
 }
 
+//checks if pet with passed in name exists
 expt.petExists = async function(name){
   if(typeof name !== 'string') throw 'you need to provide a PET EXISTS';
   const petBook = await pets();
@@ -83,6 +88,7 @@ expt.petExists = async function(name){
 
 }
 
+//creates a pet
 expt.createPet = async function(obj, petOwner){
   if(!obj) throw "no object provided";
   console.log(obj);
@@ -111,15 +117,16 @@ expt.createPet = async function(obj, petOwner){
 }
 
 
-
+//replaces pets
 expt.replacePet = async function(petName, obj){
-  if(!petName) throw 'please provide recipeId';
+  if(!petName) throw 'please provide petname';
   if(!obj) throw 'need to provide an object';
 
   await expt.removePet(petName);
   return await expt.createPet(obj);
 }
 
+//lowers pet hunger/happiness values
 expt.satisfyPet = async function(petName, param){
   var pet = await expt.getPet(petName);
   console.log(param);
@@ -132,7 +139,7 @@ expt.satisfyPet = async function(petName, param){
   console.log(await expt.getPet(petName));
 }
 
-
+//deletes pets
 expt.removePet = async function(petName){
   if(!recipeId) throw 'please provide recipeId';
 
@@ -144,12 +151,12 @@ expt.removePet = async function(petName){
   return true;
 }
 
-
+//gets every pet
 expt.getAllPets = async function(){
   const petBook = await pets();
   return await petBook.find({}).toArray();
 }
-
+//decreases stats every hour for a pet
 expt.decreaseStats = async function(){
   allPets = await expt.getAllPets();
   for(i = 0; i < allPets.length; i++){
@@ -166,11 +173,3 @@ expt.decreaseStats = async function(){
   }
   return 0;
   }
-
-
-async function run(){
-  console.log(await expt.decreaseStats());
-  var allPets = await expt.getAllPets();
-  console.log(allPets[0]);
-}
-//run();
